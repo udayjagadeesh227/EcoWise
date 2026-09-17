@@ -226,8 +226,8 @@ If the image is blurry, contains no identifiable waste, or you cannot identify i
     const responseClone = response.clone();
     const rawResponse = await responseClone.text();
     console.log('⚡ Gemini raw response (text):', rawResponse);
-    // Write raw response to a debug log file (no API key exposure)
-const logPath = path.resolve('gemini_image_debug.log');
+    // Write raw response to a debug log file in /tmp (Netlify writable dir)
+const logPath = path.join(process.env.TEMP || '/tmp', 'gemini_image_debug.log');
 appendFile(logPath, `\n---\n${new Date().toISOString()}\nStatus: ${response.status}\nResponse: ${rawResponse}\n`, (err) => {
   if (err) console.warn('Failed to write Gemini debug log:', err);
 });
@@ -349,8 +349,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start server only in local development; Netlify Functions will use the exported handler
-if (!process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.NETLIFY) {
+// Start server only in development environment
+if (process.env.NODE_ENV === 'development') {
   app.listen(PORT, () => console.log(`🌿 EcoWise Server listening on port ${PORT}`));
 }
 
