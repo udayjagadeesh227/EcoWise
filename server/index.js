@@ -5,12 +5,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { appendFile } from 'fs';
 
-// Resolve __dirname in ES module context
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // Load environment variables from the .env file located at the project root
-dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
+// Using process.cwd() works both in local dev and Netlify Functions.
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -356,4 +353,5 @@ app.get('/api/health', (req, res) => {
 if (!process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.NETLIFY) {
   app.listen(PORT, () => console.log(`🌿 EcoWise Server listening on port ${PORT}`));
 }
+
 export default app;
