@@ -23,7 +23,7 @@ A modern, full-featured sustainability web application built for college hackath
 4. **EcoAI Chatbot (`/ecoai` & Floating Button)**
    - Persistent bottom-right floating circular chatbot button accessible across pages.
    - Full conversational interface with suggested question chips.
-   - Secure Node.js backend integration with Google Gemini 1.5 Flash.
+   - Secure Node.js backend integration with Google Gemini 3.6 Flash.
    - Built-in resilient Demo Mode with verified local eco knowledge base when offline or key is unconfigured.
 
 5. **Gamification & Profile (`/profile`)**
